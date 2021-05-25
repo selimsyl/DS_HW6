@@ -47,30 +47,28 @@ public class Main {
       ObjectOutputStream out =
               new ObjectOutputStream(fileWriter);
 
-      out.writeObject(productTree);
-//      var iter = productTree.descendingIterator();
-//      while(iter.hasNext()) {
-//        out.writeObject(iter.next());
-//      }
+//      out.writeObject(productTree);
+      var iter = productTree.descendingIterator();
+      while(iter.hasNext()) {
+        out.writeObject(iter.next());
+      }
 
       FileInputStream fileReader = new FileInputStream("objectDeneme.txt");
       ObjectInputStream in =
               new ObjectInputStream(fileReader);
 
-      TreeSet<Product> objReadFromFile = (TreeSet) in.readObject();
+//      TreeSet<Product> objReadFromFile = (TreeSet) in.readObject();
 //      System.out.println((objReadFromFile.getName());
 
-      var iter = objReadFromFile.descendingIterator();
-      while(iter.hasNext()) {
-        System.out.println(iter.next().getName());
-      }
-      objReadFromFile.headSet();
-
-
-//      while (fileReader.available() > 0) {
-//        Product objReadFromFile1 = (Product) in.readObject();
-//        System.out.println(objReadFromFile1.getName());
+//      var iter = objReadFromFile.descendingIterator();
+//      while(iter.hasNext()) {
+//        System.out.println(iter.next().getName());
 //      }
+
+      while (fileReader.available() > 0) {
+        Product objReadFromFile1 = (Product) in.readObject();
+        System.out.println(objReadFromFile1.getName());
+      }
 
     }
     catch (Exception e) {
