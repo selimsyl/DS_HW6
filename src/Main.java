@@ -1,8 +1,10 @@
+import Product.Product;
+
 import java.io.*;
-import java.util.Comparator;
 import java.util.TreeSet;
 
 public class Main {
+
   public static void main(String[] args) throws IOException {
     String row;
     try {
@@ -19,8 +21,7 @@ public class Main {
       var dal  = data1[2].split("\"\"");
       System.out.println(dal.length);
 
-      for (String val:dal
-      ) {
+      for (String val:dal) {
         System.out.println(val);
       }
 
@@ -37,6 +38,7 @@ public class Main {
       Product p = new Product("13", "selim", "kirko", 152, 26, "selamlar", "adfas");
       Product p1 = new Product("53", "akan", "zirko", 313, 168, "kelamlar", "trator");
       Product p2 = new Product("53", "zakan", "zirko", 313, 168, "kelamlar", "trator");
+      Product p3 = new Product("53", "erkan", "enaktarlar", 313, 168, "kelamlar", "trator");
 
       TreeSet<Product> productTree = new TreeSet<>();
       productTree.add(p);
@@ -52,24 +54,6 @@ public class Main {
       while(iter.hasNext()) {
         out.writeObject(iter.next());
       }
-
-      FileInputStream fileReader = new FileInputStream("objectDeneme.txt");
-      ObjectInputStream in =
-              new ObjectInputStream(fileReader);
-
-//      TreeSet<Product> objReadFromFile = (TreeSet) in.readObject();
-//      System.out.println((objReadFromFile.getName());
-
-//      var iter = objReadFromFile.descendingIterator();
-//      while(iter.hasNext()) {
-//        System.out.println(iter.next().getName());
-//      }
-
-      while (fileReader.available() > 0) {
-        Product objReadFromFile1 = (Product) in.readObject();
-        System.out.println(objReadFromFile1.getName());
-      }
-
     }
     catch (Exception e) {
       System.out.println("asansdnas");

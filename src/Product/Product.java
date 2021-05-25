@@ -1,4 +1,5 @@
-import java.io.ObjectStreamException;
+package Product;
+
 import java.io.Serializable;
 import java.util.Objects;
 
