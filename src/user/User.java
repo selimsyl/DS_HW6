@@ -6,17 +6,17 @@ import java.util.Objects;
 public class User implements Serializable {
   public enum UserRole {CUSTOMER,TRADER};
 
-  public User(String userId, String password, UserRole role) {
+  public User(Integer userId, String password, UserRole role) {
     this.userId = userId;
     this.password = password;
     this.role = role;
   }
 
-  public String getUserId() {
+  public Integer getUserId() {
     return userId;
   }
 
-  public void setUserId(String userId) {
+  public void setUserId(Integer userId) {
     this.userId = userId;
   }
 
@@ -40,7 +40,7 @@ public class User implements Serializable {
     return Objects.equals(userId, user.userId) &&
             Objects.equals(password, user.password);
   }
-  private String userId;
+  private Integer userId;
   private String password;
   private final UserRole role;
 //  @Override

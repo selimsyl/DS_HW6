@@ -4,31 +4,31 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Product implements Serializable, Comparable<Product> {
-  private String id;
+  private final String id;
   private String name;
   private String category;
   private Integer price;
   private Integer discountedPrice;
   private String description;
-  private Object trader;
+  private final String traderName;
 
-  public Product(String id, String name, String category, Integer price, Integer discountedPrice, String description, Object trader) {
+  public Product(String id, String name, String category, Integer price, Integer discountedPrice, String description, String traderName) {
     this.id = id;
     this.name = name;
     this.category = category;
     this.price = price;
     this.discountedPrice = discountedPrice;
     this.description = description;
-    this.trader = trader;
+    this.traderName = traderName;
   }
 
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+//  public void setId(String id) {
+//    this.id = id;
+//  }
 
   public String getName() {
     return name;
@@ -70,13 +70,13 @@ public class Product implements Serializable, Comparable<Product> {
     this.description = description;
   }
 
-  public Object getTrader() {
-    return trader;
+  public String getTrader() {
+    return traderName;
   }
 
-  public void setTrader(Object trader) {
-    this.trader = trader;
-  }
+//  public void setTrader(String traderName) {
+//    this.traderName = traderName;
+//  }
 
   @Override
   public boolean equals(Object o) {
@@ -89,12 +89,12 @@ public class Product implements Serializable, Comparable<Product> {
             price.equals(product.price) &&
             discountedPrice.equals(product.discountedPrice) &&
             description.equals(product.description) &&
-            trader.equals(product.trader);
+            traderName.equals(product.traderName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, category, price, discountedPrice, description, trader);
+    return Objects.hash(id, name, category, price, discountedPrice, description, traderName);
   }
 
   @Override
