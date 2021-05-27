@@ -21,11 +21,11 @@ public class Customer extends User implements Serializable {
   public ArrayList<Product> searchProducts(String productName) {
     FileStorage<Product> fileStorage = new FileStorage("ProductFile.txt");
     var productTree = fileStorage.readFromFile();
-    var iter = productTree.iterator();
+    var iter = productTree.descendingIterator();
     while(iter.hasNext()) {
       var product = iter.next();
-      if (product.getName().contains(productName)) {
-        productQueryList.add(iter.next());
+      if (product.getName().toUpperCase().contains(productName.toUpperCase())) {
+        productQueryList.add(product);
       }
     }
     return productQueryList;
@@ -35,8 +35,14 @@ public class Customer extends User implements Serializable {
     return productQueryList;
   }
 
-  public void sortQueryResults(SortType sortType) {
-    productQueryList.sort(sortTypeComparatorMap.get(sortType));
+  public void listProductQueryList(ArrayList<Product> productList) {
+    for (var p : productList) {
+      System.out.println(p.getName() + " " + p.getPrice() + " " +p.getDiscountedPrice());
+    }
+  }
+
+  public void sortQueryResults(SortType sortType,ArrayList<Product> productList) {
+    productList.sort(sortTypeComparatorMap.get(sortType));
   }
 
   private ArrayList<Product> productQueryList = new ArrayList<Product>();

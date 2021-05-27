@@ -1,5 +1,6 @@
 import FileStroage.FileStorage;
 import Product.Product;
+import user.Customer;
 import user.User;
 
 import java.util.ArrayList;
@@ -205,12 +206,11 @@ public class Menu {
       switch (listMenu(menuOperations.getMenuOptions())) {
         case "Search Product" -> {
           String productName = getEnteredString("Enter product name", 3, 30);
+          System.out.println("Serach : " + productName);
           productList = customer.searchProducts(productName);
-          if (productList != null) {
-            for (var p : productList) {
-              System.out.println(p.getName());
-            }
-            sortProductsMenu();
+          if (!productList.isEmpty()) {
+            customer.listProductQueryList(productList);
+            sortProductsMenu(customer,productList);
           }
         }
         case "LogOut" -> {
@@ -330,18 +330,22 @@ public class Menu {
     return selectedModel;
   }
 
-  private Product sortProductsMenu() {
+  private Product sortProductsMenu(user.Customer customer,ArrayList<Product> productList) {
     boolean menuExit = false;
     do {
       menuOperations = new SortMenu();
       switch (listMenu(menuOperations.getMenuOptions())) {
         case "Sort By Price" -> {
+          customer.sortQueryResults(Customer.SortType.PRICE,productList);
+          customer.listProductQueryList(productList);
         }
         case "Sort By Discount" -> {
-
+          customer.sortQueryResults(Customer.SortType.DISCOUNT_PERCENT,productList);
+          customer.listProductQueryList(productList);
         }
         case "Sort By Name" -> {
-
+          customer.sortQueryResults(Customer.SortType.NAME,productList);
+          customer.listProductQueryList(productList);
         }
         case "Exit" -> {
           menuExit = true;
