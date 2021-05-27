@@ -19,7 +19,7 @@ public class Customer extends User implements Serializable {
   }
 
   public ArrayList<Product> searchProducts(String productName) {
-    FileStorage<Product> fileStorage = new FileStorage("Product.txt");
+    FileStorage<Product> fileStorage = new FileStorage("ProductFile.txt");
     var productTree = fileStorage.readFromFile();
     var iter = productTree.iterator();
     while(iter.hasNext()) {

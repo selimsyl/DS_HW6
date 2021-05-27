@@ -2,6 +2,7 @@ import FileStroage.FileStorage;
 import Product.Product;
 import user.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -56,13 +57,13 @@ public class Menu {
    */
   class CustomerMenu extends MenuOperations {
     CustomerMenu(){
-      menu = new String[]{"Search Product", "LogOut"};
+      menu = new String[]{"Search Product","LogOut"};
     }
   }
 
-  class ProductSearchMenu extends MenuOperations {
-    ProductSearchMenu() {
-      menu = new String[]{"Sort By Price", "Sort By Discount","Sort By Name","LogOut"};
+  class SortMenu extends MenuOperations {
+    SortMenu(){
+      menu = new String[]{"Sort By Price", "Sort By Discount","Sort By Name", "Exit"};
     }
   }
 
@@ -196,13 +197,21 @@ public class Menu {
    * Customer menu for operations
    */
   private void CustomerOperations() {
-    Product product = null;
+    ArrayList<Product> productList = null;
     boolean menuExit = false;
     user.Customer customer = (user.Customer)user;
     do {
       menuOperations = new CustomerMenu();
       switch (listMenu(menuOperations.getMenuOptions())) {
         case "Search Product" -> {
+          String productName = getEnteredString("Enter product name", 3, 30);
+          productList = customer.searchProducts(productName);
+          if (productList != null) {
+            for (var p : productList) {
+              System.out.println(p.getName());
+            }
+            sortProductsMenu();
+          }
         }
         case "LogOut" -> {
           System.out.println("Succesfully logged out");
@@ -321,16 +330,12 @@ public class Menu {
     return selectedModel;
   }
 
-  /**
-   * @return choosen product
-   */
-  private Product searchAProduct() {
+  private Product sortProductsMenu() {
     boolean menuExit = false;
     do {
-      menuOperations = new ProductSearchMenu();
+      menuOperations = new SortMenu();
       switch (listMenu(menuOperations.getMenuOptions())) {
         case "Sort By Price" -> {
-
         }
         case "Sort By Discount" -> {
 
@@ -345,4 +350,5 @@ public class Menu {
     } while(!menuExit);
     return null;
   }
+
 }
