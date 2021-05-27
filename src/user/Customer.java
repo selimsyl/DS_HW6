@@ -1,15 +1,16 @@
 package user;
 
+import java.io.Serializable;
 import java.util.*;
 
 import FileStroage.FileStorage;
 import Product.Order;
 import Product.Product;
 
-public class Customer extends User{
+public class Customer extends User implements Serializable {
   public enum SortType {PRICE,DISCOUNT_PERCENT,NAME};
 
-  public Customer(String userId, String password) {
+  public Customer(Integer userId, String password) {
     super(userId, password, UserRole.CUSTOMER);
   }
 
@@ -43,19 +44,27 @@ public class Customer extends User{
 //  private LinkedList<Order> orderList;
 
   private HashMap<SortType, Comparator<Product>> sortTypeComparatorMap = new HashMap<>() {{
-    put(SortType.PRICE,compPrice);
-    put(SortType.NAME,compName);
-    put(SortType.DISCOUNT_PERCENT,compDiscountPercent);
+    put(SortType.PRICE, new CompareProductByPrice());
+    put(SortType.NAME, new CompareProductByDiscount());
+    put(SortType.DISCOUNT_PERCENT, new CompareProductByName());
   }};
 
-  private final Comparator<Product> compPrice = (p1, p2) -> {
-    return p1.getPrice().compareTo(p2.getPrice());
-  };
-  private final Comparator<Product> compDiscountPercent = (p1, p2) -> {
-    return p1.getDiscountedPrice().compareTo(p2.getDiscountedPrice());
-  };
-  private final Comparator<Product> compName = (p1, p2) -> {
-    return p1.getName().compareTo(p2.getName());
-  };
-
+  private static class CompareProductByPrice implements Comparator<Product>,Serializable {
+    @Override
+    public int compare(Product o1, Product o2) {
+      return o1.getPrice().compareTo(o2.getPrice());
+    }
+  }
+  private static class CompareProductByDiscount implements Comparator<Product>,Serializable {
+    @Override
+    public int compare(Product o1, Product o2) {
+      return o1.getDiscountedPrice().compareTo(o2.getDiscountedPrice());
+    }
+  }
+  private static class CompareProductByName implements Comparator<Product>,Serializable {
+    @Override
+    public int compare(Product o1, Product o2) {
+      return o1.getName().compareTo(o2.getName());
+    }
+  }
 }

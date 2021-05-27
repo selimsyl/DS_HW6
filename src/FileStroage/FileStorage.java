@@ -27,6 +27,8 @@ public class FileStorage<E> {
 //      while(iter.hasNext()) {
 //        out.writeObject(iter.next());
 //      }
+      out.close();
+      fileWriter.close();
     }
     catch (FileNotFoundException e) {
       System.out.println("Yazilacak dosya bulunamadi");
@@ -43,14 +45,18 @@ public class FileStorage<E> {
       ObjectInputStream in =
               new ObjectInputStream(fileReader);
 
-        if (fileReader.available() > 0) {
+//        if (fileReader.available() > 0) {
           tree = (TreeSet<E>) in.readObject();
-        }
+//        }
+      in.close();
+      fileReader.close();
     }
     catch (FileNotFoundException e) {
+      System.out.println(e.getMessage());
       System.out.println("Okunacak dosya bulunamadi");
     }
     catch (IOException | ClassNotFoundException e) {
+      System.out.println(e.getMessage());
       System.out.println("Dosyadan verileri okurken exception olustu");
     }
     return tree;

@@ -4,9 +4,10 @@ import Product.Order;
 import Product.Product;
 import com.sun.source.tree.Tree;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Trader extends User{
+public class Trader extends User implements Serializable {
   public Trader(Integer userId, String password) {
     super(userId, password,UserRole.TRADER);
   }

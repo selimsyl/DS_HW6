@@ -14,6 +14,7 @@ public class ProductCSVInit {
   public ProductCSVInit(String filePathToCreateFrom) {
     ProductFilePath = filePathToCreateFrom;
     readProductsFromCSVFile();
+    System.out.println("end of ProductCSVInit()");
   }
 
   public TreeSet<Product> getProductTree() {
@@ -27,6 +28,7 @@ public class ProductCSVInit {
       row = csvReader.readLine();//read coloumn names
       System.out.println(row);
       while ((row = csvReader.readLine()) != null) {
+        System.out.println(row);
         row = csvReader.readLine();
         productTree.add(getProductFromFileRowData(row));
       }
@@ -41,11 +43,19 @@ public class ProductCSVInit {
   }
   private Product getProductFromFileRowData(String rowData) {
     String[] productDataRow = rowData.split(";");//id,name,category,price,discountedPrice,description,trader
+    int price,disCounterdPrice;
+    try {
+      price = Integer.parseInt(productDataRow[3]);
+    } catch (Exception e) { price = 0; }
+    try {
+      disCounterdPrice = Integer.parseInt(productDataRow[4]);
+    } catch (Exception e) {disCounterdPrice = 0;}
+
     return new Product(productDataRow[0],
             productDataRow[1],
             productDataRow[2],
-            Integer.parseInt(productDataRow[3]),
-            Integer.parseInt(productDataRow[4]),
+            price,
+            disCounterdPrice,
             productDataRow[5],
             productDataRow[6]);
   }

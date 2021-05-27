@@ -3,7 +3,8 @@ package user;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Serializable {
+public class User implements Serializable,Comparable{
+
   public enum UserRole {CUSTOMER,TRADER};
 
   public User(Integer userId, String password, UserRole role) {
@@ -40,6 +41,13 @@ public class User implements Serializable {
     return Objects.equals(userId, user.userId) &&
             Objects.equals(password, user.password);
   }
+
+  @Override
+  public int compareTo(Object o) {
+    return this.getUserId().compareTo(((User)o).getUserId());
+  }
+
+
   private Integer userId;
   private String password;
   private final UserRole role;
